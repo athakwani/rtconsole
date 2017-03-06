@@ -16,6 +16,8 @@ type Line struct {
 
 type Console struct {
     cursor *curse.Cursor 
+    do chan bool
+    next chan bool
     lines int
 }
 
@@ -24,8 +26,6 @@ func New() (*Console, error) {
     
     
     c := &Console{}
-    c.do = make(chan bool, 1)
-    c.next = make(chan bool, 1)
     c.lines = 0
 
     c.cursor, err = curse.New()
@@ -46,6 +46,7 @@ func (c *Console) Printf(format string, args ...interface{}) (*Line) {
 }
 
 func (l *Line) Printf(format string, args ...interface{}) {
+    oldp := l.c.cursor.Position
     l.c.cursor.Move(l.X, l.Y - l.c.lines)
     fmt.Printf(format, args...)
     l.c.cursor.Move(oldp.X, oldp.Y)
