@@ -1,6 +1,8 @@
 package main
 
 import (    
+    "time"
+    "strings"
     
     "github.com/athakwani/rtconsole"
 )
@@ -12,12 +14,12 @@ func main() {
     total := 150
     progressBarWidth := 80
 
-    bar1 = console.Printf("%d/%d %s", 0, 0, progressBar(i, total, progressBarWidth))
+    bar1 := console.Printf("%d/%d %s", 0, 0, progressBar(0, 0, progressBarWidth))
 
     // display a progress bar
     for i := 0; i <= total; i++ {
-        bar1..Printf("%d/%d %s", i, total, progressBar(i, total, progressBarWidth))
-        time.Sleep(time.Millisecond * 25)
+        bar1.Printf("%d/%d %s", i, total, progressBar(i, total, progressBarWidth))
+        time.Sleep(time.Millisecond)
     }    
 }
 

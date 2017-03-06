@@ -16,8 +16,6 @@ type Line struct {
 
 type Console struct {
     cursor *curse.Cursor 
-    do chan bool
-    next chan bool
     lines int
 }
 
@@ -36,7 +34,6 @@ func New() (*Console, error) {
     }    
     
     c.cursor.SetDefaultStyle()        
-    c.do <- true // Let do start with the ball
     return c, err
 }
 
@@ -49,12 +46,9 @@ func (c *Console) Printf(format string, args ...interface{}) (*Line) {
 }
 
 func (l *Line) Printf(format string, args ...interface{}) {
-    <-l.c.do // Waits for the ball
-    oldp := l.c.cursor.Position
     l.c.cursor.Move(l.X, l.Y - l.c.lines)
     fmt.Printf(format, args...)
     l.c.cursor.Move(oldp.X, oldp.Y)
-    l.c.next <- true // Pass on the ball to the next function    
 }
 
 func (c *Console) Scanf(format string, args ...interface{}) (*Line) {
