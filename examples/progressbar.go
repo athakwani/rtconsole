@@ -14,13 +14,28 @@ func main() {
     total := 150
     progressBarWidth := 80
 
-    bar1 := console.Printf("%d/%d %s", 0, 0, progressBar(0, 0, progressBarWidth))
+    
+    go func() {
+        bar := console.Printf("%d/%d %s\n", 0, 0, progressBar(0, 0, progressBarWidth))
 
-    // display a progress bar
-    for i := 0; i <= total; i++ {
-        bar1.Printf("%d/%d %s", i, total, progressBar(i, total, progressBarWidth))
-        time.Sleep(time.Millisecond)
-    }    
+        // display a progress bar
+        for i := 0; i <= total; i++ {
+            bar.Printf("%d/%d %s\n", i, total, progressBar(i, total, progressBarWidth))
+            time.Sleep(time.Millisecond * 25)
+        }    
+    }()
+
+    go func() {
+        bar := console.Printf("%d/%d %s\n", 0, 0, progressBar(0, 0, progressBarWidth))
+
+        // display a progress bar
+        for i := 0; i <= total; i++ {
+            bar.Printf("%d/%d %s\n", i, total, progressBar(i, total, progressBarWidth))
+            time.Sleep(time.Millisecond * 25)
+        }    
+    }()
+
+    time.Sleep(time.Second * 10)
 }
 
 func progressBar(progress, total, width int) string {
