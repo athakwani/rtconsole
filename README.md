@@ -1,2 +1,2 @@
-# rtlog
-Realtime Logging library for golang.
+# rtconsole
+Realtime Console for golang.

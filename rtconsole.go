@@ -67,4 +67,3 @@ func (c *Console) Scanf(format string, args ...interface{}) (*Line) {
     return l
 }
 
-
